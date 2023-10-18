@@ -1,0 +1,24 @@
+name: Custom Echo Action
+
+on:
+  push:
+    branches-ignore:
+      - main  # This excludes the main branch from the push event
+  pull_request:
+    branches:
+      - main  # This targets the pull request events towards the main branch
+
+jobs:
+  echo-messages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Echo messages
+      run: |
+        if [[ "${{ github.event_name }}" == "push" ]]; then
+          echo "Code pushed to branch"
+        elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+          echo "Merge"
+        fi
