@@ -2,8 +2,8 @@ name: Custom Echo Action
 
 on:
   push:
-    branches-ignore:
-      - main  # This excludes the main branch from the push event
+    branches:
+      - main
   pull_request:
     branches:
       - main  # This targets the pull request events towards the main branch
